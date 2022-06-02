@@ -41,7 +41,7 @@ LOCAL_DOCKER_BINARY='/usr/bin/docker'		    # Local Docker binary directory (defa
 REMOTE_DOCKER_BINARY='/usr/bin/docker'		    # Remote Docker binary directory (default)
 LOCAL_PODMAN_BINARY='/usr/bin/podman'           # Local Podman binary directory (default)
 REMOTE_PODMAN_BINARY='/usr/bin/podman'          # Remote Podman binary directory (default)
-PIHOLE_CONTAINER_IMAGE='pihole/pihole'          # Official Pi-hole container image name
+PIHOLE_CONTAINER_IMAGE='jacklul/pihole'          # Official Pi-hole container image name
 
 ###############################################
 ####### THE NEEDS OF THE MANY, OUTWEIGH #######
@@ -1471,7 +1471,7 @@ function detect_local_pihole {
         LOCAL_PIHOLE_TYPE="default"
         echo_good
     elif hash docker 2>/dev/null; then
-        PH_FTL_CHECK=$(sudo docker container ls | grep 'pihole/pihole')
+        PH_FTL_CHECK=$(sudo docker container ls | grep 'jacklul/pihole')
         if [ "$PH_FTL_CHECK" != "" ]; then
             LOCAL_PIHOLE_TYPE="docker"
             echo_good
@@ -1480,7 +1480,7 @@ function detect_local_pihole {
             echo_fail
         fi
     elif hash podman 2>/dev/null; then
-        PH_FTL_CHECK=$(sudo podman container ls | grep 'pihole/pihole')
+        PH_FTL_CHECK=$(sudo podman container ls | grep 'jacklul/pihole')
         if [ "$PH_FTL_CHECK" != "" ]; then
             LOCAL_PIHOLE_TYPE="podman"
             echo_good
@@ -1502,8 +1502,8 @@ function detect_remote_pihole {
         REMOTE_PIHOLE_TYPE="default"
         echo_good
     else   
-        REMOTE_DETECT_DOCKER=$(${OS_SSH_CMD} -p ${GS_SSH_PORT} -i "${GS_SSH_PKIF}" ${REMOTE_USER}@${REMOTE_HOST} "sudo docker container ls | grep 'pihole/pihole'" 2>/dev/null)
-        REMOTE_DETECT_PODMAN=$(${OS_SSH_CMD} -p ${GS_SSH_PORT} -i "${GS_SSH_PKIF}" ${REMOTE_USER}@${REMOTE_HOST} "sudo podman container ls | grep 'pihole/pihole'" 2>/dev/null)
+        REMOTE_DETECT_DOCKER=$(${OS_SSH_CMD} -p ${GS_SSH_PORT} -i "${GS_SSH_PKIF}" ${REMOTE_USER}@${REMOTE_HOST} "sudo docker container ls | grep 'jacklul/pihole'" 2>/dev/null)
+        REMOTE_DETECT_PODMAN=$(${OS_SSH_CMD} -p ${GS_SSH_PORT} -i "${GS_SSH_PKIF}" ${REMOTE_USER}@${REMOTE_HOST} "sudo podman container ls | grep 'jacklul/pihole'" 2>/dev/null)
 
         if [ "${REMOTE_DETECT_DOCKER}" != "" ]; then
             REMOTE_PIHOLE_TYPE="docker"
